@@ -30,19 +30,19 @@ public class MainActivity extends AppCompatActivity {
         label=findViewById(R.id.label);
 
         csoundObj=new CSDPlayer();
-        csoundObj.pause();
-        csoundObj.startCsound(getApplicationContext(),R.raw.test);
 
         label.setText(Math.round(min)+" Hz");
-        csoundObj.getCsound().SetChannel("slider",min);
+
 
 
         togglebutton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    csoundObj.play();
+                    csoundObj.startCsound(getApplicationContext(),R.raw.test);
+                    double value=min*Math.exp(seekbar.getProgress()*loginterval/100);
+                    csoundObj.getCsound().SetChannel("slider",value);
                 } else {
-                    csoundObj.pause();
+                    csoundObj.stop();
                 }
 
             }
